@@ -2,6 +2,8 @@ package org.javaeducation.tasks;
 
 import org.javaeducation.api.Command;
 
+import java.io.IOException;
+
 public class TaskRunner {
 
     private Command command;
@@ -12,7 +14,11 @@ public class TaskRunner {
 
     public void run() {
         while (command != null) {
-            command = command.execute();
+            try {
+                command = command.execute();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

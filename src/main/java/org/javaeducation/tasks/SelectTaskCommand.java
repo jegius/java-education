@@ -4,6 +4,7 @@ import org.javaeducation.api.Command;
 import org.javaeducation.api.MenuItem;
 import org.javaeducation.utils.MenuUtils;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class SelectTaskCommand implements Command {
         return instance;
     }
     @Override
-    public Command execute() {
+    public Command execute() throws IOException {
         List<MenuItem> items = Arrays.asList(
-                new MenuItem("1", "text", SelectTaskCommand.getInstance(), true),
-                new MenuItem("2", "text", SelectTaskCommand.getInstance(), false),
-                new MenuItem("3", "text", SelectTaskCommand.getInstance(), false)
+                new MenuItem("text", SelectTaskCommand.getInstance(), true),
+                new MenuItem("text", SelectTaskCommand.getInstance(), false),
+                new MenuItem("text", SelectTaskCommand.getInstance(), false)
         );
 
         return MenuUtils.printCommands(items);
