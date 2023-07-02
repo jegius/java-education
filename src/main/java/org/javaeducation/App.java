@@ -1,7 +1,7 @@
 package org.javaeducation;
 
 import org.javaeducation.tasks.SelectTaskCommand;
-import org.javaeducation.tasks.TaskRunner;
+import org.javaeducation.api.TaskRunner;
 
 /**
  * Hello world!

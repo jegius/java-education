@@ -1,41 +1,42 @@
-package org.javaeducation.tasks;
+package org.javaeducation.tasks.calculator;
 
 import com.googlecode.lanterna.screen.Screen;
 import org.javaeducation.api.Command;
-import org.javaeducation.tasks.calculator.StartTask;
+import org.javaeducation.tasks.SelectTaskCommand;
 
 import java.io.IOException;
 import java.util.List;
 
-public class SelectTaskCommand implements Command {
-    private static SelectTaskCommand instance;
+public class StartTask implements Command {
+    private static StartTask instance;
 
-    private SelectTaskCommand() {
+    private StartTask() {
     }
 
-    public static synchronized SelectTaskCommand getInstance() {
+    public static synchronized StartTask getInstance() {
         if (instance == null) {
-            instance = new SelectTaskCommand();
+            instance = new StartTask();
         }
         return instance;
     }
 
+
     @Override
     public String getName() {
-        return "Main menu";
+        return "Calculator";
     }
 
     @Override
     public String getDescription() {
-        return getReadme("tasks");
+        return getReadme("tasks/calculator");
     }
 
     @Override
     public Command execute(Screen screen) throws IOException {
         screen.clear();
         return createItems(List.of(
-                StartTask.getInstance(),
-                ExitCommand.getInstance()
+                CalculatorCommand.getInstance(),
+                SelectTaskCommand.getInstance()
         ), screen);
     }
 }
