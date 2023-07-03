@@ -9,6 +9,7 @@ import java.util.List;
 
 public class SelectTaskCommand implements Command {
     private static SelectTaskCommand instance;
+    private static final String PATH = "tasks";
 
     private SelectTaskCommand() {
     }
@@ -22,12 +23,12 @@ public class SelectTaskCommand implements Command {
 
     @Override
     public String getName() {
-        return "Main menu";
+        return getReadmeHeader(PATH);
     }
 
     @Override
     public String getDescription() {
-        return getReadme("tasks");
+        return getReadme(PATH);
     }
 
     @Override

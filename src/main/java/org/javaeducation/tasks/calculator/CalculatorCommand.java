@@ -25,7 +25,7 @@ public class CalculatorCommand implements Command {
 
     @Override
     public String getDescription() {
-        return getReadme("org/javaeducation/tasks/calculator");
+        return "Cal";
     }
 
     @Override

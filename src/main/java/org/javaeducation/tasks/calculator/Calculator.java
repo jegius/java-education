@@ -1,8 +1,14 @@
 package org.javaeducation.tasks.calculator;
 
 public interface Calculator {
-    double sum(double[] ...operands);
-    double minus(double[] ...operands);
-    double divide(double[] ...operands);
-    double multiply(double[] ...operands);
+    Calculator sum(double operands);
+    Calculator minus(double operands);
+    Calculator divide(double operands);
+    Calculator multiply(double operands);
+    Calculator pow(double operand);
+    Calculator sqrt(double operand);
+    Calculator log(int base, double operand);
+    Calculator modulo(int base, double divider);
+    double getResult();
+    void clearValue();
 }

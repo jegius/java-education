@@ -21,24 +21,24 @@ import java.util.regex.Pattern;
 
 public class MenuUtils {
     private static final String CONSOLE_INSTRUCTION = """
-            <b> .____                                                 </b><br>
-            <b> |    |       ____   _____    _______    ____          </b><br>
-            <b> |    |     _/ __ \\  \\__  \\   \\_  __ \\  /    \\   </b><br>
-            <b> |    |___  \\  ___/   / __ \\_  |  | \\/ |   |  \\    </b><br>
-            <b> |_______ \\  \\___  > (____  /  |__|    |___|  /      </b><br>
-            <b>        \\/      \\/       \\/                \\/      </b><br>
-            <b>      ____.    _____    ____   ____    _____           </b><br>
-            <b>     |    |   /  _  \\   \\   \\ /   /   /  _  \\      </b><br>
-            <b>     |    |  /  /_\\  \\   \\   V   /   /  /_\\  \\    </b><br>
-            <b> /\\__|    | /    |    \\   \\     /   /    |    \\    </b><br>
-            <b> \\________| \\____|__  /    \\___/    \\____|__  /    </b><br>
-            <b>                    \\/                      \\/       </b><br>
-            <b>-------------------------------------------------------</b><br>
-            Please select task with using <b>W/S</b> or Arrow <b>UP/DOWN</b> keys<br>
+            <b> .____                                                                                            </b><br>
+            <b> |    |       ____   _____    _______    ____                                                     </b><br>
+            <b> |    |     _/ __ \\  \\__  \\   \\_  __ \\  /    \\                                              </b><br>
+            <b> |    |___  \\  ___/   / __ \\_  |  | \\/ |   |  \\                                               </b><br>
+            <b> |_______ \\  \\___  > (____  /  |__|    |___|  /                                                 </b><br>
+            <b>        \\/      \\/       \\/                \\/                                                 </b><br>
+            <b>      ____.    _____    ____   ____    _____                                                      </b><br>
+            <b>     |    |   /  _  \\   \\   \\ /   /   /  _  \\                                                 </b><br>
+            <b>     |    |  /  /_\\  \\   \\   V   /   /  /_\\  \\                                               </b><br>
+            <b> /\\__|    | /    |    \\   \\     /   /    |    \\                                               </b><br>
+            <b> \\________| \\____|__  /    \\___/    \\____|__  /                                               </b><br>
+            <b>                    \\/                      \\/                                                  </b><br>
+            <b>---------------------------------------------------------------------------------------------------------</b><br>
+            Please select task with using <b>W/S</b> or Arrow <b>UP/DOWN</b> keys<br> 
             and press on <b>Enter</b> key for task section, or <b>Q</b> for exit<br>
-            -------------------------------------------------------<br>
-            <b>%s</b><br>
-            -------------------------------------------------------<br>""";
+            ---------------------------------------------------------------------------------------------------------<br>
+            %s<br>
+            ---------------------------------------------------------------------------------------------------------<br>""";
 
     private static final String BOLD_PATTERN = "<b>(.*?)</b>";
 
@@ -86,7 +86,7 @@ public class MenuUtils {
 
     private static void printMatches(Integer basePosition, List<String> matches, BiFunction<Integer, String, Integer> renderer) {
         for (String partOfTemplate : matches) {
-             renderer.apply(basePosition, partOfTemplate);
+            renderer.apply(basePosition, partOfTemplate);
         }
     }
 
@@ -177,20 +177,28 @@ public class MenuUtils {
     }
 
     private static void printItems(List<MenuItem> menuItems, Screen screen, int currentSelection, int startPosition) {
+        int PADDING = 4;
+
         for (int index = 0; index < menuItems.size(); index++) {
-            TerminalPosition position = new TerminalPosition(4, startPosition + index);
-            TextGraphics textGraphics = screen.newTextGraphics().enableModifiers(SGR.BOLD);
+            TerminalPosition position = new TerminalPosition(PADDING, startPosition + index);
+            TextGraphics textGraphics = screen.newTextGraphics();
+            String itemText = menuItems
+                    .get(index)
+                    .text();
+
+            String displayedText = index == currentSelection
+                    ? """
+                    > %s""".formatted(itemText)
+                    : """
+                    \s\s%s""".formatted(itemText);
 
             if (index == currentSelection) {
                 textGraphics
                         .setForegroundColor(TextColor.ANSI.GREEN)
-                        .putString(position, """
-                                > %s""".formatted(menuItems.get(index).text()));
-            } else {
-                textGraphics
-                        .putString(position, """
-                                \s\s%s""".formatted(menuItems.get(index).text()));
+                        .enableModifiers(SGR.BOLD);
             }
+
+            printByPattern(displayedText, BOLD_PATTERN, position, textGraphics);
         }
     }
 }

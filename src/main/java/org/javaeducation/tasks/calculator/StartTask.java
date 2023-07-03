@@ -9,6 +9,7 @@ import java.util.List;
 
 public class StartTask implements Command {
     private static StartTask instance;
+    private static final String PATH = "tasks/calculator";
 
     private StartTask() {
     }
@@ -23,12 +24,12 @@ public class StartTask implements Command {
 
     @Override
     public String getName() {
-        return "Calculator";
+        return getReadmeHeader(PATH);
     }
 
     @Override
     public String getDescription() {
-        return getReadme("tasks/calculator");
+        return getReadme(PATH);
     }
 
     @Override
